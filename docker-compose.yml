@@ -1,0 +1,44 @@
+version: '3.3'
+
+services:
+  reverseproxy:
+    image: docker-ee-node2.localdomain/wlieberman/nginx-proxy:0.0.1
+    ports:
+      - 8080:8080
+      - 8081:8081
+    restart: always
+
+################################################################################
+  ## This is the reverse proxy test section
+  nginx:
+    depends_on: 
+      - reverseproxy
+    image: nginx:alpine
+    restart: always
+
+  apache:
+    depends_on: 
+      - reverseproxy
+    image: httpd:alpine
+    restart: always
+################################################################################
+
+  #wordpress:
+    #image: wordpress:fpm-alpine
+    #restart: always
+    #ports:
+      #- 9000:9000
+    #environment:
+      #WORDPRESS_DB_HOST: db
+      #WORDPRESS_DB_USER: wordpress_user
+      #WORDPRESS_DB_PASSWORD: wordpress_user_password
+      #WORDPRESS_DB_NAME: wordpress
+
+  #db:
+    #image: mysql:5.7
+    #restart: always
+    #environment:
+      #MYSQL_DATABASE: wordpress
+      #MYSQL_USER: wordpress_user
+      #MYSQL_PASSWORD: wordpress_user_password
+      #MYSQL_RANDOM_ROOT_PASSWORD: '1'
