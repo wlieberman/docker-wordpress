@@ -1,0 +1,45 @@
+version: '3.3'
+
+services:
+  reverseproxy:
+    image: docker-ee-node2.localdomain/wlieberman/nginx-proxy:wordpress
+    ports:
+      - 1234:80
+    restart: always
+    volumes:
+      - "doc_root:/var/www/html"
+    networks:
+      - frontend
+
+  wordpress:
+    image: wordpress:fpm
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress_user
+      WORDPRESS_DB_PASSWORD: wordpress_user_password
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - "doc_root:/var/www/html"
+    networks:
+      - frontend
+      - database
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress_user
+      MYSQL_PASSWORD: wordpress_user_password
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    networks:
+      - database
+
+volumes:
+  doc_root:
+
+networks:
+  frontend:
+  database:
