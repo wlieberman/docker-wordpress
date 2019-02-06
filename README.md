@@ -25,7 +25,7 @@ HowTo Begin
 ``` bash
 git clone git@github.com:wlieberman/docker-wordpress.git
 cd docker-wordpress
-docker-compose up -f docker-compose.yml
+docker-compose -f docker-compose.yml up
 ```
 
 * With Docker Swarm: Remember, we have to build the nginx image and modify the docker-stack.yml file with the image name:tag.
