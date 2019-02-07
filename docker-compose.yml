@@ -23,6 +23,7 @@ services:
       WORDPRESS_DEBUG: 1
     volumes:
       - "doc_root:/var/www/html"
+      - "./php/php.ini:/usr/local/etc/php/php.ini:ro"
 
   db:
     image: mysql:5.7
@@ -32,6 +33,9 @@ services:
       MYSQL_USER: wordpress_user
       MYSQL_PASSWORD: wordpress_user_password
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes: 
+      - "mysql_data:/var/lib/mysql"
 
 volumes:
   doc_root:
+  mysql_data:
