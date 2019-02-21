@@ -15,9 +15,9 @@ services:
    wordpress:
      depends_on:
        - db
-     image: wordpress:latest
+     image: wlieberman/wordpress:0.0.1
      ports:
-       - "8000:80"
+       - "80:80"
      restart: always
      volumes: 
        - './html:/var/www/html'
